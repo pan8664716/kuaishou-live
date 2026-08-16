@@ -64,14 +64,14 @@ https://live.kuaishou.com/live/HOT:50
 已内置 `.github/workflows/update-m3u.yml`：每小时（北京时间整点）+ 手动触发跑一次，
 用纯 HTTP 生成 m3u 并自动提交回仓库。**无需浏览器/Node 依赖**。
 
-部署到 https://github.com/pan8664716/kuaishou-m3u ：
+部署到 https://github.com/pan8664716/kuaishou-live ：
 
 ```bash
 cd /Users/star/Downloads/kuaishou
 git init -b main
 git add -A && git commit -m "init: 快手直播 m3u 每小时更新"
 git branch -M main
-git remote add origin https://github.com/pan8664716/kuaishou-m3u.git
+git remote add origin https://github.com/pan8664716/kuaishou-live.git
 git push -u origin main
 ```
 

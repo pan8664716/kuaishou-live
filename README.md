@@ -1,4 +1,4 @@
-# 快手直播 m3u 生成器（纯 HTTP + GitHub Actions）
+# 快手直播 m3u 生成器（纯 HTTP）
 
 抓取 [快手游戏直播·热门](https://live.kuaishou.com/live/HOT) 页面同款接口（含**下拉加载更多**），
 生成 `kuaishou_live.m3u`，每条格式：
@@ -58,28 +58,8 @@ HOT              # 热门页，默认 50 页
 HOT:50           # 显式 50 页（上限 50）
 https://live.kuaishou.com/live/HOT:50
 ```
-
-## GitHub Actions 定时更新（每小时）
-
-已内置 `.github/workflows/update-m3u.yml`：每小时（北京时间整点）+ 手动触发跑一次，
-用纯 HTTP 生成 m3u 并自动提交回仓库。**无需浏览器/Node 依赖**。
-
-部署到 https://github.com/pan8664716/kuaishou-live ：
-
-```bash
-cd /Users/star/Downloads/kuaishou
-git init -b main
-git add -A && git commit -m "init: 快手直播 m3u 每小时更新"
-git branch -M main
-git remote add origin https://github.com/pan8664716/kuaishou-live.git
-git push -u origin main
-```
-
-推送后手动触发一次验证：仓库页面 → **Actions** → **更新快手直播 m3u** → **Run workflow**，
-之后每小时自动更新。
-
 ## 注意事项
 
-- 列表 = "此刻在播"：主播下播后地址立刻 404。GitHub Actions 每小时刷新一次即保持可用。
+- 列表 = "此刻在播"：主播下播后地址立刻 404。建议用 cron/计划任务每小时跑一次 `python3 update_m3u.py` 保持列表可用。
 - 播放器若遇到个别 404 频道，跳到下一个即可（属于正常下播）。
 - 实测抽样可播率：50 页全量列表随机抽 15 条 **15/15 可播**。
